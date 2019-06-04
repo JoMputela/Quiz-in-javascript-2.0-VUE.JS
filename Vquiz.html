@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Quiz in Vuejs</title>
+  <link href="https://fonts.googleapis.com/css?family=Crete+Round|Freckle+Face|Quicksand|Sedgwick+Ave+Display" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="Vstyle.css">
+	<!--the script src below will Load Vue script or allow/invit vuejs-->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- the src is the link to vuejs above-->
+	<!-- we have now add all the files = js,vuejs and css above-->
+</head>
+<body>
+<!--<h1>the one </h1> line was for testing-->
+
+  <!-- the div below is where Vue things/element will works. only inside this div
+  <div id="app">
+    Vue's data/and other work will displayed here 
+  {{ message }}
+  </div>-->
+<h1>The best African Quiz ever</h1>
+
+<div id="app">
+    <center><h2>{{ quiz.motive }}</h2></center>
+      <!-- index is used to check with current question index -->
+        <div v-for="(question, index) in quiz.questions">
+            <!-- Hide all questions, show only the one with index === to current question index -->
+          <div v-show="index === questionIndex">
+                <h3>{{ question.text }}</h3>
+              <ol>
+                  <li v-for="response in question.responses">
+                    <label>
+                      <!-- The radio button has three new directives, v-bind:value sets "value" to "true" if the response is correct -->
+                      <!-- v-bind:name sets "name" to question index to group answers by question and v-model creates binding with userResponses -->
+                      <input type="radio" 
+                             v-bind:value="response.correct" 
+                             v-bind:name="index" 
+                             v-model="userResponses[index]"> {{response.text}}
+                    </label>
+                  </li>
+                </ol>
+                <!-- below are the two navigation buttons and on the prev is hidden on first question, 
+                  notes the v-if staement say if Q is great than zero than go back -->
+                <button v-if="questionIndex > 0" v-on:click="prev">Previous Question</button>
+                <button v-on:click="next">Next Question</button>
+            </div>
+         </div>
+
+
+  <div v-show="questionIndex === quiz.questions.length">
+      <h2>Quiz finished</h2>
+        <p>Total score: {{ score }} / {{ quiz.questions.length }}</p>
+  </div>
+  <center><div v-if="score<10 && questionIndex===20" v-else-if="score<12 && questionIndex===20"  v-else-if ="score>17 && questionIndex===20" >{{ message }}</div></center>
+
+</div>
+
+<footer>
+<h3>This 20 Question Quiz was done in Vue.js</h3>
+</footer>
+
+
+<script type="text/javascript" src="Vmain.js"></script>
+<!--this is a link to the js file-->
+</body>
+</html>
